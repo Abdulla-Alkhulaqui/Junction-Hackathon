@@ -22,7 +22,7 @@ function Table() {
       order_id: { primary: false, foreign: false },
     },
   };
-  console.log(parseToSql(sample));
+  // console.log(parseToSql(sample));
   return (
     <div className="Table">
       {/* <div className="table-name">

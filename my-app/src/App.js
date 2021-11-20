@@ -5,7 +5,7 @@ import BoardGenarator from "./components/BoardGenarator";
 function App() {
   return (
     <div className="App">
-      <Table />
+      {/* <Table /> */}
       <BoardGenarator />
     </div>
   );
