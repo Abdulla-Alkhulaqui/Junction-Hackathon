@@ -1,0 +1,32 @@
+.Table {
+  background-color: red;
+  width: fit-content;
+  border-radius: 30px;
+  padding: 100px;
+}
+
+.BoardGenarator {
+  background-color: red;
+  width: fit-content;
+  border-radius: 30px;
+  padding: 0 30px;
+  .title {
+    margin-bottom: 50px;
+  }
+  .schima-values {
+    margin: 10px 0;
+  }
+}
+.Field {
+  background-color: blue;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 10px;
+  height: 100%;
+  margin: 10px 0;
+  .line {
+    background-color: rgb(255, 207, 49);
+    width: 100px;
+    height: 100px;
+  }
+}

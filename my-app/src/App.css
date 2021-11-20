@@ -1,0 +1,43 @@
+.Table {
+  background-color: red;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 30px;
+  padding: 100px;
+}
+
+.BoardGenarator {
+  background-color: red;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 30px;
+  padding: 0 30px;
+}
+
+.BoardGenarator .title {
+  margin-bottom: 50px;
+}
+
+.BoardGenarator .schima-values {
+  margin: 10px 0;
+}
+
+.Field {
+  background-color: blue;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 10px;
+  height: 100%;
+  margin: 10px 0;
+}
+
+.Field .line {
+  background-color: #ffcf31;
+  width: 100px;
+  height: 100px;
+}
+/*# sourceMappingURL=App.css.map */
