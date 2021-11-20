@@ -21,7 +21,7 @@ const MOCK_DATA = [
   {
     title: "DEPT",
     firstRow: columnNames,
-    rows: Array(6).fill(0).map(() => MOCK_ENTITY)
+    rows: Array(1).fill(0).map(() => MOCK_ENTITY)
   }
 ];
 
@@ -122,7 +122,7 @@ async function init() {
   const createTable = async (data) => {
     const table = await board.createShape({
       width: dimensions.WIDTH_TABLE,
-      height: dimensions.HEIGHT_TABLE * ( data.rows.length + (data.rows.length < 4 ? 1 : 2) ) ,
+      height: dimensions.HEIGHT_TABLE * ( data.rows.length + (data.rows.length < 4 ? 2 : 1) ) ,
       style: {
         fillColor: colors.WHITE,
       },
@@ -150,8 +150,10 @@ async function init() {
   await onCreateSchemas();
   for (const mock of MOCK_DATA) {
     boardShape = await createTable(mock);
+    if (boardShape) {
+      await board.viewport.zoomTo(boardShape);
+    }
   }
-  await board.viewport.zoomTo(boardShape);
 }
 
 init()
