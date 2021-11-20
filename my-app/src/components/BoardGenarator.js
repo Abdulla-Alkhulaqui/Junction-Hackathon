@@ -1,8 +1,8 @@
 import "../App.scss";
 import Field from "./Field";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle, faKey } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 function BoardGenarator() {
   const [schemaName, setsSchemaName] = useState("");
@@ -18,13 +18,27 @@ function BoardGenarator() {
     tempTableField[childKey] = data;
     await setsTableFields(tempTableField);
   };
+
+
+  useEffect(() => {
+      setFieldsComp([
+          ...fieldsComp,
+          <Field
+              func={updateTableFields}
+              icon={fieldsComp.length === 0}
+              fieldKey={fieldsComp.length + 1 + ""}
+              key={fieldsComp.length + 1}
+          />,
+      ]);
+  }, []);
+
   return (
     <div className="BoardGenerator">
       <div className="title">
-        <h1 className="h1">SQL schema generator</h1>
+        <h1 className="h1 text-medium">SQL schema generator</h1>
       </div>
       <div className="form-group">
-        <h2 className="h2">Schema Name</h2>
+        <h2 className="h2 text-normal">Schema Name</h2>
         <input
           onInput={async (e) => await setsSchemaName(e.target.value)}
           className="input"
@@ -35,25 +49,28 @@ function BoardGenarator() {
 
       <div className="schema-values">
         <div className="form-group">
-          <h2 className="h2">Schema values</h2>
+          <h2 className="h2 text-normal">Schema values</h2>
         </div>
-        <div className="fields">{fieldsComp}</div>
-        <FontAwesomeIcon
-          onClick={(e) => {
-            setFieldsComp([
-              ...fieldsComp,
-              <Field
-                func={updateTableFields}
-                icon={fieldsComp.length == 0}
-                fieldKey={fieldsComp.length + 1 + ""}
-                key={fieldsComp.length + 1}
-              />,
-            ]);
-          }}
-          icon={faPlusCircle}
-          id="plusIcon"
-          size="lg"
-        />
+          <div className={"schema-values__wrapper"}>
+              <div className="fields">{fieldsComp}</div>
+          </div>
+          <FontAwesomeIcon
+              onClick={() => {
+                  setFieldsComp([
+                      ...fieldsComp,
+                      <Field
+                          func={updateTableFields}
+                          icon={fieldsComp.length === 0}
+                          fieldKey={fieldsComp.length + 1 + ""}
+                          key={fieldsComp.length + 1}
+                      />,
+                  ]);
+              }}
+              className={'icon-add-column'}
+              icon={faPlusCircle}
+              id="plusIcon"
+              size="lg"
+          />
       </div>
       <button onClick={(e) => genarateBoard()} className="genarate-btn">
         Genarate
