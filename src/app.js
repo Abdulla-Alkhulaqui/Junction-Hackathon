@@ -235,7 +235,7 @@ async function createViewData() {
     }),
   }));
 
-  console.log(viewData);
+  return viewData;
 }
 
 
