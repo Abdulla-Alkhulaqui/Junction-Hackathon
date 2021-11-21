@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 function Field(props) {
   const [fieldId, setFieldId] = useState("");
-  const [fieldValue, setFieldValue] = useState("1");
+  const [fieldValue, setFieldValue] = useState("1 ");
   return (
     <div className="Field">
       {props.icon ? <FontAwesomeIcon icon={faKey} className="icon" /> : ""}

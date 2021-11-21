@@ -2,38 +2,96 @@ import React, { useState } from "react";
 
 import Table from "./Table";
 function StateUpdater() {
-  let table1 = { tableName: "emp", fields: ["id", "name", "age"] };
-  // let table1 = {
-  //   tableName: "",
-  //   fields: {
-  //     id: { type: "", forignKey: "" },
-  //     name: { type: "", forignKey: "" },
-  //     age: { type: "", forignKey: "" },
-  //   },
-  // };
-  let table2 = { tableName: "dept", fields: ["id", "loc"] };
-  let tables2 = [table1, table2];
-  let [tables, setTables] = useState([]);
-  //Check the value if changed and then change it.
-  // let createTablesStructure = (tables) => {
-  //   let result = tables.map((table) => {
-  //     {
-  //       tableName: table.tableName;
-  //       fields: table.field.map((field) => {
-  //         {
-  //           `${field}`:""
-  //         }
-  //       });
-  //     }
-  //   });
-  // };
-  // createTablesStructure(tables2);
-  let updateTableInfo = (tableName, field, section, data) => {
-    let tempTables = tables;
-    // tempTables[tableName][field] = data;
-    // table[tableName][field][section] = data
+  let [deletedItems, setDeletedItems] = useState([]);
+  let [tables, setTables] = useState({});
 
-    console.log(tableName, field, section, data);
+  let tables2 = [
+    {
+      id: "3074457368053387488",
+      parent: null,
+      content: "EMP",
+      children: [
+        {
+          id: "3074457368053387496",
+          parent: "EMP",
+          content: "id",
+          children: [
+            {
+              id: "3074457368053387497",
+              content: "int",
+              parent: "3074457368053387496",
+              children: [],
+            },
+            {
+              id: "3074457368053387498",
+              content: "true",
+              parent: "3074457368053387496",
+              children: [],
+            },
+            {
+              id: "3074457368053387499",
+              content: "default",
+              parent: "3074457368053387496",
+              children: [],
+            },
+            {
+              id: "3074457368053387501",
+              content: "false",
+              parent: "3074457368053387499",
+              children: [],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "3074457368053387488",
+      parent: null,
+      content: "EMP",
+      children: [
+        {
+          id: "3074457368053387496",
+          parent: "EMP",
+          content: "id",
+          children: [
+            {
+              id: "3074457368053387497",
+              content: "int",
+              parent: "3074457368053387496",
+              children: [],
+            },
+            {
+              id: "3074457368053387498",
+              content: "true",
+              parent: "3074457368053387496",
+              children: [],
+            },
+            {
+              id: "3074457368053387499",
+              content: "default",
+              parent: "3074457368053387496",
+              children: [],
+            },
+            {
+              id: "3074457368053387501",
+              content: "false",
+              parent: "3074457368053387499",
+              children: [],
+            },
+          ],
+        },
+      ],
+    },
+  ];
+
+  let updateTableInfo = (id, newData) => {
+    setTables({ id: id, newType: newData, deletedItems: deletedItems });
+  };
+  let addDeletedFields = (deletedFieldId) => {
+    setDeletedItems([...deletedItems, deletedFieldId]);
+  };
+  let returnFun = () => {
+    console.log(tables);
   };
   return (
     <div className="StateUpdater">
@@ -46,7 +104,15 @@ function StateUpdater() {
       </div>
       <div className="tables">
         {tables2.map((table, index) => {
-          return <Table table={table} key={index} func={updateTableInfo} />;
+          return (
+            <Table
+              table={table}
+              key={index}
+              func={updateTableInfo}
+              returnFun={returnFun}
+              addDeletedFields={addDeletedFields}
+            />
+          );
         })}
       </div>
     </div>

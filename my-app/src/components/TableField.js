@@ -6,67 +6,82 @@ function TableField(props) {
   let [fieldTrigger, setFieldTrigger] = useState(false);
   let [foreignKey, setForeignKey] = useState("");
   let [fieldType, setFieldType] = useState("");
+  let [isDeleted, setIsDeleted] = useState(false);
 
   return (
     <div className="TableField">
-      <div className="field-name-arrow">
-        <FontAwesomeIcon
-          onClick={(e) => {
-            setFieldTrigger(!fieldTrigger);
-          }}
-          icon={faChevronUp}
-          className="iconUpArrow"
-        />
-        <h2 className="h2">{props.field}</h2>
-      </div>
-      {!fieldTrigger && (
-        <div className="field-type-foreignKeys">
-          <div className="field-type">
-            <span>type</span>
-            <select
-              onChange={(e) => {
-                setFieldType(e.target.value);
-                props.func(
-                  props.tableName,
-                  props.field,
-                  "type",
-                  e.target.value
-                );
+      {!isDeleted ? (
+        <div>
+          <div className="field-name-arrow">
+            <FontAwesomeIcon
+              onClick={(e) => {
+                setFieldTrigger(!fieldTrigger);
               }}
-              className="select"
-            >
-              <option value="int">int</option>
-              <option value="varchar2()">varchar2()</option>
-              <option value="float">float</option>
-              <option value="double">double</option>
-              <option value="date">date</option>
-            </select>
+              icon={faChevronUp}
+              className="iconUpArrow"
+            />
+            <h2 className="h2">{props.child.content}</h2>
           </div>
-          <div className="table-foreignKeys">
-            <span>foreign key in</span>
-            <select
-              onChange={(e) => {
-                setForeignKey(e.target.value);
-                props.func(
-                  props.tableName,
-                  props.field,
-                  "foreignKey",
-                  e.target.value
-                );
+          {!fieldTrigger && (
+            <div className="field-type-foreignKeys">
+              <div className="field-type">
+                <span>type</span>
+                <select
+                  onChange={(e) => {
+                    setFieldType(e.target.value);
+                    props.func(props.child.children[0].id, e.target.value);
+                  }}
+                  className="select"
+                >
+                  <option value="int">int</option>
+                  <option value="varchar2()">varchar2()</option>
+                  <option value="float">float</option>
+                  <option value="double">double</option>
+                  <option value="date">date</option>
+                </select>
+              </div>
+              <div className="table-foreignKeys">
+                <span>foreign key in</span>
+                <select
+                  onChange={(e) => {
+                    setForeignKey(e.target.value);
+                  }}
+                  className="select foreignKeysSelect"
+                >
+                  <option value="dept">restaurant</option>
+                  <option value="shcool">shcool</option>
+                </select>
+              </div>
+            </div>
+          )}
+
+          <div className="delete-save-btns">
+            <button
+              onClick={(e) => {
+                props.addDeletedFields(props.child.id);
+                setIsDeleted(true);
               }}
-              className="select foreignKeysSelect"
+              className="delete-btn"
             >
-              <option value="dept">restaurant</option>
-              <option value="shcool">shcool</option>
-            </select>
+              delete
+            </button>
+            {!fieldTrigger ? (
+              <button
+                onClick={(e) => {
+                  props.returnFun();
+                }}
+                className="save-btn"
+              >
+                save
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </div>
+      ) : (
+        ""
       )}
-
-      <div className="delete-save-btns">
-        <button className="delete-btn">delete</button>
-        {!fieldTrigger ? <button className="save-btn">save</button> : ""}
-      </div>
     </div>
   );
 }
