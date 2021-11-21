@@ -6,14 +6,14 @@ function StateUpdater() {
   const [tables, setTables] = useState({});
   const [fetchedTables, setFetchedTables] = useState([]);
 
-  useEffect(() => {
+  useEffect(async () => {
     const createdTablesNumber = (+localStorage.getItem('createdTablesNumber'));
 
-    console.log(createdTablesNumber);
     if (!isNaN(createdTablesNumber) && createdTablesNumber > 0) {
       /*eslint no-undef-init: "error"*/
-      const tables = window.createViewData();
-      setFetchedTables(tables);
+      const tables = await window.createViewData();
+      await setFetchedTables(tables);
+      console.log(tables);
     }
 
   }, []);

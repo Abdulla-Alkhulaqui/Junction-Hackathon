@@ -1,5 +1,6 @@
 import "./App.scss";
 import BoardGenarator from "./components/BoardGenarator";
+import {useEffect, useRef} from "react";
 // import ParseToSql from "./components/ParseToSql";
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
             localStorage.setItem('createdTablesNumber', '0');
             isMounted.current = false;
         }
+        // eslint-disable-next-line
     }, []);
 
 

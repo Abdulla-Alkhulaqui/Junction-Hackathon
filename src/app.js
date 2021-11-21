@@ -24,7 +24,7 @@ async function init() {
   let tableData = (JSON.parse(localStorage.getItem('tableData')));
   let tableNameObj = "";
   let createdTablesNumber = (+localStorage.getItem('createdTablesNumber'));
-  if (isNaN(createdTablesNumber)) {
+  if (!isNaN(createdTablesNumber)) {
     createdTablesNumber++;
   }
 
@@ -191,10 +191,7 @@ async function init() {
 
   await createViewData();
   localStorage.setItem('createdTablesNumber', String(createdTablesNumber));
-
-  if (createdTablesNumber > 1) {
-
-  }
+  console.log(localStorage.getItem('createdTablesNumber'));
 }
 
 async function createViewData() {
@@ -244,6 +241,19 @@ async function createViewData() {
     }),
   }));
 }
+
+async function openDialog() {
+  await board.ui.openModal({ pageUrl: './dialog/build/index.html', maxWidth: 800, maxHeight: 800 });
+}
+
+
+async function closeDialog() {
+  await board.ui.closeModal();
+}
+
+
+window.openDialog = openDialog;
+window.closeDialog = closeDialog;
 
 
 window.init = init;

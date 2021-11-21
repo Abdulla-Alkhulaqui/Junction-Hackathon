@@ -7,16 +7,3 @@ async function init() {
 }
 
 init();
-
-async function openDialog() {
-  await board.ui.openModal({ pageUrl: './dialog/build/index.html', maxWidth: 800, maxHeight: 800 });
-}
-
-
-async function closeDialog() {
-  await board.ui.closeModal();
-}
-
-
-window.openDialog = openDialog;
-window.closeDialog = closeDialog;

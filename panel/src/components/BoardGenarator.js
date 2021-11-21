@@ -12,14 +12,27 @@ function BoardGenarator() {
 
   let genarateBoard = () => {
     localStorage.setItem('tableData', JSON.stringify(table));
-      /*eslint no-undef-init: "error"*/
-      window.init();
+    if (window.init) {
+        /*eslint no-undef-init: "error"*/
+        window.init();
+    } else {
+        console.error('No window.init provided');
+    }
   };
   let updateTableFields = async (data, childKey) => {
     let tempTableField = tableFields;
     tempTableField[childKey] = data;
     await setsTableFields(tempTableField);
   };
+
+  const openTablesDialog = () => {
+      if (window.openDialog) {
+          /*eslint no-undef-init: "error"*/
+          window.openDialog();
+      } else {
+          console.error('No window.openDialog function provided');
+      }
+  }
 
 
   useEffect(() => {
@@ -77,7 +90,11 @@ function BoardGenarator() {
       <button onClick={(e) => genarateBoard()} className="genarate-btn">
         Generate
       </button>
-        <button onClick={(e) => genarateBoard()} className="genarate-btn__secondary">
+        <button
+            disabled={(+localStorage.getItem('createdTablesNumber')) > 1}
+            onClick={() => openTablesDialog()}
+            className="genarate-btn__secondary"
+        >
             Open Tables Editor
         </button>
     </div>
