@@ -2,7 +2,7 @@ import "../App.scss";
 import Field from "./Field";
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle, faKey } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 function BoardGenarator() {
   const [schemaName, setsSchemaName] = useState("");
@@ -44,7 +44,7 @@ function BoardGenarator() {
               ...fieldsComp,
               <Field
                 func={updateTableFields}
-                icon={fieldsComp.length == 0}
+                icon={fieldsComp.length === 0}
                 fieldKey={fieldsComp.length + 1 + ""}
                 key={fieldsComp.length + 1}
               />,
