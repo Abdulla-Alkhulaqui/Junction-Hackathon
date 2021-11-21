@@ -15,25 +15,20 @@ const dimensions = {
   OFFSET_ROW: 70,
 };
 
-const columnNames = ["primary", "name", "type", "extras", "foreign"];
-const MOCK_ENTITY = [true, "id", "int", "custom", true];
-// const MOCK_DATA = [
-//   {
-//     tableName: "DEPT",
-//     firstRow: columnNames,
-//     fields: Array(1).fill(0).map(() => MOCK_ENTITY)
-//   }
-// ];
+const columnNames = [ "name", "type", "primary", "extras", "foreign"];
 
 async function init() {
   let boardShape = null;
   let firstShape = null;
   let lastShape = null;
   let tableData = (JSON.parse(localStorage.getItem('tableData')));
+  let tableNameObj = "";
 
   const changeTableFields = (tableFields) => {
-    return Object.values(tableFields).map(i => [i.primary ?? false, i.fieldId, i.fieldValue,  "default", i.foreign ?? false  ]);
+    return Object.values(tableFields).map(i => [i.fieldId, i.fieldValue, i.primary ?? false,  "default", i.foreign ?? false  ]);
   }
+
+  const takeContentInput = (content) => content.content.replace(/<[^>]+>/g, '');
 
   tableData = {
     tableName: tableData.tableName,
@@ -71,12 +66,8 @@ async function init() {
       y: getCurrentY()
     });
 
-    await board.createText({
-      content: `
-        <p style="color: ${colors.WHITE}; font-weight: bold; font-family: Formular, Arial, sans-serif; ">
-            ${data.tableName}
-        </p>
-      `,
+    tableNameObj = await board.createText({
+      content: `<p datatype="table-name" resource="table" style="color: ${colors.WHITE}; font-weight: bold; font-family: Formular, Arial, sans-serif; ">${data.tableName}</p>`,
       y: getCurrentY(),
     });
 
@@ -110,9 +101,30 @@ async function init() {
   }
 
   const createRow = async (table, data, index) => {
-    const createText = async (text, x, y) => {
+    let name;
+    const createText = async (text, x, y, index) => {
+      let column;
+      switch (index) {
+        case 0:
+          column = 'name'
+          name = text
+          break;
+        case 2:
+          column = 'primary'
+          break;
+        case 1:
+          column = 'type'
+          break;
+        case 3:
+          column = 'extras'
+          break;
+        case 4:
+          column = 'foreign'
+          break;
+      }
+
       return await board.createText({
-        content: `<p style="color: #000000; font-weight: 900; font-family: Formular, Arial, sans-serif;">${text}</p>`,
+        content: `<p accesskey="${takeContentInput(tableNameObj)}" resource="${name}" datatype="${column}" style="color: #000000; font-weight: 900; font-family: Formular, Arial, sans-serif;">${text}</p>`,
         y,
         x
       });
@@ -126,9 +138,11 @@ async function init() {
     });
 
     let x = -((rect.width / 2) - 100);
+    let i = 0;
     for (const column of data) {
-      let blueText =  await createText(column, x, rect.y);
+      let blueText =  await createText(column, x, rect.y, i);
       x += blueText.width + 70;
+      i++;
     }
 
     return rect;
@@ -170,15 +184,58 @@ async function init() {
       await board.viewport.zoomTo(boardShape);
     }
   }
+
+  await createViewData();
 }
 
 async function createViewData() {
-  const ITEM_TYPE = {
-    TABLE_NAME: 0,
-    TABLE_FIELD: 1,
-    TABLE_PROPERTY: 2,
-  }
-  const items = await board.get();
+  const items = (await board.get())
+      .filter(item => item.type === "text")
+      .filter(item => item.content.includes('resource='));
+
+  const takeByDataType = (type) => items.filter(i => i.content.includes(`datatype="${type}"`));
+  const takeByResource = (resource, datatypeIgnore = false) =>
+      datatypeIgnore ? items.filter(i => !i.content.includes(`datatype="${datatypeIgnore}"`) && i.content.includes(`resource="${resource}"`))
+         :items.filter(i => i.content.includes(`resource="${resource}"`));
+  const takeContentInput = (content) => content.content.replace(/<[^>]+>/g, '');
+
+  function createElementFromString(str) {
+    const element = new DOMParser().parseFromString(str, 'text/html');
+    return element.documentElement.querySelector('body').firstChild;
+  };
+
+  const takeParent = (field) => {
+    const element = createElementFromString(field.content);
+    return element.getAttribute("accesskey");
+  };
+
+  const nameColumns = takeByDataType("name");
+
+  const tableRows = nameColumns.map(name => ({
+    id: name.id,
+    parent: takeParent(name),
+    content: takeContentInput(name),
+    children: takeByResource(takeContentInput(name), "name")
+        .map(i => ({
+      id: i.id,
+      content: takeContentInput(i),
+      parent: name.id,
+      children: []
+    }))
+  }));
+
+  const tableNames = takeByDataType("table-name");
+
+  const viewData = tableNames.map(table => ({
+    id: table.id,
+    parent: null,
+    content: takeContentInput(table),
+    children: tableRows.filter(i => {
+      return i.parent === takeContentInput(table)
+    }),
+  }));
+
+  console.log(viewData);
 }
 
 
