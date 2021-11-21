@@ -23,6 +23,10 @@ async function init() {
   let lastShape = null;
   let tableData = (JSON.parse(localStorage.getItem('tableData')));
   let tableNameObj = "";
+  let createdTablesNumber = (+localStorage.getItem('createdTablesNumber'));
+  if (isNaN(createdTablesNumber)) {
+    createdTablesNumber++;
+  }
 
   const changeTableFields = (tableFields) => {
     return Object.values(tableFields).map(i => [i.fieldId, i.fieldValue, i.primary ?? false,  "default", i.foreign ?? false  ]);
@@ -186,6 +190,11 @@ async function init() {
   }
 
   await createViewData();
+  localStorage.setItem('createdTablesNumber', String(createdTablesNumber));
+
+  if (createdTablesNumber > 1) {
+
+  }
 }
 
 async function createViewData() {
@@ -226,7 +235,7 @@ async function createViewData() {
 
   const tableNames = takeByDataType("table-name");
 
-  const viewData = tableNames.map(table => ({
+  return tableNames.map(table => ({
     id: table.id,
     parent: null,
     content: takeContentInput(table),
@@ -234,8 +243,6 @@ async function createViewData() {
       return i.parent === takeContentInput(table)
     }),
   }));
-
-  return viewData;
 }
 
 
