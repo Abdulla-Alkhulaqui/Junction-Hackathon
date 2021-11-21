@@ -1,12 +1,14 @@
-// import Table from "./components/Table";
 import "./App.scss";
 import BoardGenarator from "./components/BoardGenarator";
+// import ParseToSql from "./components/ParseToSql";
+import StateUpdater from "./components/StateUpdater";
 
 function App() {
   return (
     <div className="App">
-      {/* <Table /> */}
       <BoardGenarator />
+      <StateUpdater />
+      {/*<ParseToSql />*/}
     </div>
   );
 }
