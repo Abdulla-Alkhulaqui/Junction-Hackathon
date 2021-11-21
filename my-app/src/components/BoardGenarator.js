@@ -11,7 +11,9 @@ function BoardGenarator() {
   let table = { tableName: schemaName, tableFields: tableFields };
 
   let genarateBoard = () => {
-    console.log(table);
+    localStorage.setItem('tableData', JSON.stringify(table));
+      /*eslint no-undef-init: "error"*/
+      window.init();
   };
   let updateTableFields = async (data, childKey) => {
     let tempTableField = tableFields;

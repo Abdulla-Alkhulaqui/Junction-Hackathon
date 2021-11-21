@@ -17,18 +17,33 @@ const dimensions = {
 
 const columnNames = ["primary", "name", "type", "extras", "foreign"];
 const MOCK_ENTITY = [true, "id", "int", "custom", true];
-const MOCK_DATA = [
-  {
-    title: "DEPT",
-    firstRow: columnNames,
-    rows: Array(1).fill(0).map(() => MOCK_ENTITY)
-  }
-];
+// const MOCK_DATA = [
+//   {
+//     tableName: "DEPT",
+//     firstRow: columnNames,
+//     fields: Array(1).fill(0).map(() => MOCK_ENTITY)
+//   }
+// ];
 
 async function init() {
   let boardShape = null;
   let firstShape = null;
   let lastShape = null;
+  let tableData = (JSON.parse(localStorage.getItem('tableData')));
+
+  const changeTableFields = (tableFields) => {
+    return Object.values(tableFields).map(i => [i.primary ?? false, i.fieldId, i.fieldValue,  "default", i.foreign ?? false  ]);
+  }
+
+  tableData = {
+    tableName: tableData.tableName,
+    firstRow: columnNames,
+    fields: changeTableFields(tableData.tableFields)
+  };
+
+  console.log(tableData);
+
+
 
   const onCreateSchemas = async () => {
     const items = await board.get();
@@ -59,7 +74,7 @@ async function init() {
     await board.createText({
       content: `
         <p style="color: ${colors.WHITE}; font-weight: bold; font-family: Formular, Arial, sans-serif; ">
-            ${data.title}
+            ${data.tableName}
         </p>
       `,
       y: getCurrentY(),
@@ -122,7 +137,7 @@ async function init() {
   const createTable = async (data) => {
     const table = await board.createShape({
       width: dimensions.WIDTH_TABLE,
-      height: dimensions.HEIGHT_TABLE * ( data.rows.length + (data.rows.length < 4 ? 2 : 1) ) ,
+      height: dimensions.HEIGHT_TABLE * ( data.fields.length + (data.fields.length < 4 ? 2 : 1) ) ,
       style: {
         fillColor: colors.WHITE,
       },
@@ -132,7 +147,7 @@ async function init() {
     await createFirstRowTable(table, data);
 
     let index = 2;
-    for (const row of data.rows) {
+    for (const row of data.fields) {
       lastShape = await createRow(table, row, index);
       console.log(lastShape);
       index++;
@@ -148,16 +163,23 @@ async function init() {
   }
 
   await onCreateSchemas();
-  for (const mock of MOCK_DATA) {
-    boardShape = await createTable(mock);
+
+  for (const data of [tableData]) {
+    boardShape = await createTable(data);
     if (boardShape) {
       await board.viewport.zoomTo(boardShape);
     }
   }
 }
 
-init()
-    .then()
-    .catch(e => {
-      console.error(e);
-    });
+async function createViewData() {
+  const ITEM_TYPE = {
+    TABLE_NAME: 0,
+    TABLE_FIELD: 1,
+    TABLE_PROPERTY: 2,
+  }
+  const items = await board.get();
+}
+
+
+window.init = init;
