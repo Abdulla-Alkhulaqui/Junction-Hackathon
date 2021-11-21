@@ -78,7 +78,7 @@ function BoardGenarator() {
         Generate
       </button>
         <button onClick={(e) => genarateBoard()} className="genarate-btn__secondary">
-            Open Table Editor
+            Open Tables Editor
         </button>
     </div>
   );

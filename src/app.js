@@ -247,3 +247,4 @@ async function createViewData() {
 
 
 window.init = init;
+window.createViewData = createViewData;
