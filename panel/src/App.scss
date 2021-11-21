@@ -1,0 +1,293 @@
+#root {
+  max-width: 340px;
+  background: #ffffff;
+  max-height: 586px;
+  width: 100%;
+  height: 100%;
+}
+
+.Table {
+  width: fit-content;
+  border-radius: 30px;
+  padding: 100px;
+}
+
+.App {
+  height: 100%;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.text-normal {
+  font-weight: normal;
+}
+
+.text-light {
+  font-weight: lighter;
+}
+
+.text-medium {
+  font-weight: 500;
+}
+
+.BoardGenerator {
+  background-color: #ffffff;
+  //border: 1px solid #000000;
+  height: 100%;
+  width: 100%;
+  padding: 0 var(--space-small);
+  .input {
+    border-color: #000000;
+  }
+
+  .title {
+    text-align: center;
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .form-group {
+    .h2 {
+      font-size: 1.15rem;
+    }
+  }
+
+  .schema-values {
+    margin: 10px 0;
+    position: relative;
+    .fields {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    &__wrapper {
+      background-color: #ffffff;
+      border-radius: 10px;
+      overflow-x: scroll;
+      height: 10.75rem;
+      width: 93%;
+      position: relative;
+      padding-left: 1.25rem;
+      padding-top: 1.25rem;
+      border: 1px solid #000000;
+    }
+
+    .icon-add-column {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+    }
+  }
+  #plusIcon {
+    &:hover {
+      color: rgba(69, 91, 237, 1);
+    }
+  }
+  .genarate-btn {
+    background-color: rgba(69, 91, 237, 1);
+    margin: 0.3rem auto;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 10px;
+    width: 100%;
+    padding: 0.7rem 0.7rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+    &:hover {
+      background-color: rgba(69, 91, 237, 0.924);
+    }
+
+    &__secondary {
+      background-color: #ffffff;
+      color: #000000;
+      margin: 0.3rem auto;
+      border: none;
+      outline: none;
+      border-radius: 10px;
+      width: 100%;
+      padding: 0.7rem 0.7rem;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+  }
+}
+.Field {
+  position: relative;
+  width: 250px;
+  height: 40px;
+  margin: 10px 0;
+  display: flex;
+  .icon {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    margin: auto 5px;
+    cursor: pointer;
+  }
+
+  #fieldValue {
+    border-radius: 0 5px 5px 0;
+    height: 42px !important;
+  }
+  #fieldValue,
+  #fieldId {
+    flex-basis: 50%;
+    width: 120px;
+    height: 100%;
+    outline: none;
+    border: 0.5px solid rgb(0, 0, 0);
+    padding: 0 40px;
+  }
+  #fieldId {
+    border-radius: 5px 0 0 5px;
+    width: 30px;
+  }
+}
+
+.StateUpdater {
+  box-shadow: 1px 1px 5px #20202050;
+  width: 550px;
+  min-height: 300px;
+  margin: 100px;
+  padding: 20px;
+  margin-bottom: 1000px;
+  background-color: rgba(255, 255, 255, 0.692);
+  border-radius: 10px;
+
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    .jsonExport {
+      left: 0;
+      position: absolute;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      background-color: rgba(69, 91, 237, 0.924);
+      color: #fff;
+      padding: 10px;
+      &:hover {
+        background-color: rgba(69, 91, 237, 0.856);
+      }
+    }
+    .schema-code {
+      .schema,
+      .code {
+        margin: 10px;
+        color: rgba(0, 0, 0, 0.883);
+      }
+    }
+  }
+  .tables {
+    display: flex;
+    flex-direction: column;
+    .table {
+      .table-name {
+        .table-name-arrow {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: fit-content;
+          .iconUpArrow {
+            transform: rotate(180deg);
+            margin-right: 5px;
+          }
+        }
+      }
+      .TableField {
+        background-color: rgba(227, 231, 255, 0.301);
+        border-radius: 10px;
+        padding: 10px;
+        margin: 20px;
+        .field-name-arrow {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: fit-content;
+          .iconUpArrow {
+            transform: rotate(180deg);
+            margin-right: 5px;
+          }
+
+          h2 {
+            cursor: pointer;
+          }
+        }
+        .field-type-foreignKeys {
+          display: flex;
+          justify-content: space-evenly;
+          .field-type {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            span {
+              margin-right: 10px;
+            }
+          }
+          .table-foreignKeys {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            span {
+              margin-right: 10px;
+            }
+            .foreignKeysSelect {
+              width: 100px;
+            }
+          }
+        }
+        .delete-save-btns {
+          display: flex;
+          justify-content: end;
+          .save-btn {
+            background-color: rgb(23, 219, 33);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 5px 50px;
+            margin: 20px 10px 0 0;
+            &:hover {
+              background-color: rgba(23, 219, 33, 0.863);
+            }
+          }
+          .delete-btn {
+            border: 1px solid rgb(219, 23, 23);
+            color: rgb(0, 0, 0);
+            background-color: transparent;
+            border-radius: 10px;
+            padding: 5px 50px;
+            margin: 20px 10px 0 0;
+            &:hover {
+              transition: 0.5s;
+              background-color: rgb(219, 23, 23);
+              color: #fff;
+            }
+          }
+          .delete-btn-withoutSave {
+            border: 1px solid rgb(219, 23, 23);
+            color: rgb(0, 0, 0);
+            background-color: transparent;
+            border-radius: 10px;
+            padding: 5px 50px;
+            margin: 0;
+            &:hover {
+              transition: 0.5s;
+              background-color: rgb(219, 23, 23);
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+}

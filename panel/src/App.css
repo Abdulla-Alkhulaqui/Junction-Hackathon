@@ -1,0 +1,99 @@
+.Table {
+  background-color: red;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 30px;
+  padding: 100px;
+}
+
+.BoardGenerator {
+  -webkit-box-shadow: 1px 1px 5px #2020209f;
+          box-shadow: 1px 1px 5px #2020209f;
+  margin: 100px;
+  width: 550px;
+  border-radius: 30px;
+  padding: 0 30px;
+}
+
+.BoardGenerator .title {
+  text-align: center;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.BoardGenerator .schema-values {
+  margin: 10px 0;
+}
+
+.BoardGenerator .schema-values .fields {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.BoardGenerator #plusIcon:hover {
+  color: #455bed;
+}
+
+.BoardGenerator .genarate-btn {
+  background-color: #455bed;
+  margin: 20px auto;
+  border: none;
+  outline: none;
+  color: #fff;
+  border-radius: 10px;
+  width: 100%;
+  padding: 20px 0;
+  cursor: pointer;
+}
+
+.BoardGenerator .genarate-btn:hover {
+  background-color: rgba(69, 91, 237, 0.924);
+}
+
+.Field {
+  position: relative;
+  width: 250px;
+  height: 40px;
+  margin: 10px 0;
+  display: flex;
+}
+
+.Field .icon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  margin: auto 5px;
+  cursor: pointer;
+}
+
+.Field #fieldValue {
+  border-radius: 0 5px 5px 0;
+}
+
+.Field #fieldValue,
+.Field #fieldId {
+  width: 120px;
+  outline: none;
+  border: 0.5px solid black;
+  padding: 0 40px;
+  flex-basis: 50%;
+  height: 42px !important;
+}
+
+.StateUpdater {
+  -webkit-box-shadow: 1px 1px 5px #2020209f;
+          box-shadow: 1px 1px 5px #2020209f;
+  width: 550px;
+  height: 300px;
+  margin: 100px;
+  background-color: rgba(233, 233, 233, 0.692);
+}
+/*# sourceMappingURL=App.css.map */
