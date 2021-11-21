@@ -20,6 +20,11 @@ function StateUpdater() {
 
   let updateTableInfo = (id, newData) => {
     setTables({ id: id, newType: newData, deletedItems: deletedItems });
+    if (window.updateBoardState) {
+      window.updateBoardState(id, newData);
+    } else {
+      console.error("No update state function")
+    }
   };
   let addDeletedFields = (deletedFieldId) => {
     setDeletedItems([...deletedItems, deletedFieldId]);

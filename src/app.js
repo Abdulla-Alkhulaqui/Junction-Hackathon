@@ -243,7 +243,7 @@ async function createViewData() {
 }
 
 async function openDialog() {
-  await board.ui.openModal({ pageUrl: './dialog/build/index.html', maxWidth: 800, maxHeight: 800 });
+  await board.ui.openModal({ pageUrl: './dialog/build/index.html', maxWidth: 800, maxHeight: 1000 });
 }
 
 
@@ -251,6 +251,23 @@ async function closeDialog() {
   await board.ui.closeModal();
 }
 
+async function updateBoardState(id, newState) {
+  const item = (await board.get()).filter(item => item.id === id);
+  if (item.length > 0) {
+      item[0].content = `<p datatype="table-name" resource="table" style="color: #000000; font-weight: bold; font-family: Formular, Arial, sans-serif; ">${newState}</p>`;
+
+      await item[0].sync();
+    console.log(item[0].content);
+  }  else {
+    console.error('Wrong id provided');
+  }
+}
+
+async function removeBoardObject(id) {
+
+}
+
+window.updateBoardState = updateBoardState;
 
 window.openDialog = openDialog;
 window.closeDialog = closeDialog;

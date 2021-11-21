@@ -8,6 +8,12 @@ function TableField(props) {
   let [fieldType, setFieldType] = useState("");
   let [isDeleted, setIsDeleted] = useState(false);
 
+
+  const onFieldSave = (e) => {
+    setFieldType(e.target.value);
+    props.func(props.child.children[0].id, e.target.value);
+  }
+
   return (
     <div className="TableField">
       {!isDeleted ? (
@@ -27,10 +33,7 @@ function TableField(props) {
               <div className="field-type">
                 <span>type</span>
                 <select
-                  onChange={(e) => {
-                    setFieldType(e.target.value);
-                    props.func(props.child.children[0].id, e.target.value);
-                  }}
+                  onChange={onFieldSave}
                   className="select"
                 >
                   <option value="int">int</option>

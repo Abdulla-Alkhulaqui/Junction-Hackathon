@@ -38,10 +38,10 @@
 
 .BoardGenerator {
   background-color: #ffffff;
+  padding: 0 !important;
   //border: 1px solid #000000;
   height: 100%;
   width: 100%;
-  padding: 0 var(--space-small);
   .input {
     border-color: #000000;
   }
@@ -72,7 +72,8 @@
       border-radius: 10px;
       overflow-x: scroll;
       height: 10.75rem;
-      width: 93%;
+
+      width: 100%;
       position: relative;
       padding-left: 1.25rem;
       padding-top: 1.25rem;

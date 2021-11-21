@@ -47,13 +47,17 @@ function BoardGenarator() {
       ]);
   }, []);
 
+  const checkDisabled = () => {
+      return (+localStorage.getItem('createdTablesNumber')) > 1
+  }
+
   return (
     <div className="BoardGenerator">
       <div className="title">
-        <h1 className="h1 text-medium">SQL schema generator</h1>
+        <h1 className="h1 text-medium">DB Dynamic</h1>
       </div>
       <div className="form-group">
-        <h2 className="h2 text-normal">Schema Name</h2>
+        <h2 className="h2 text-normal">Table Name</h2>
         <input
           onInput={async (e) => await setsSchemaName(e.target.value)}
           className="input"
@@ -64,7 +68,7 @@ function BoardGenarator() {
 
       <div className="schema-values">
         <div className="form-group">
-          <h2 className="h2 text-normal">Schema values</h2>
+          <h2 className="h2 text-normal">Table values</h2>
         </div>
           <div className={"schema-values__wrapper"}>
               <div className="fields">{fieldsComp}</div>
@@ -91,7 +95,6 @@ function BoardGenarator() {
         Generate
       </button>
         <button
-            disabled={(+localStorage.getItem('createdTablesNumber')) > 1}
             onClick={() => openTablesDialog()}
             className="genarate-btn__secondary"
         >
