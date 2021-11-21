@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 function Field(props) {
   const [fieldId, setFieldId] = useState("");
-  const [fieldValue, setFieldValue] = useState("");
+  const [fieldValue, setFieldValue] = useState("int");
   return (
     <div className="Field">
       {props.icon ? <FontAwesomeIcon icon={faKey} className="icon" /> : ""}
@@ -13,7 +13,7 @@ function Field(props) {
         onInput={async (e) => {
           await setFieldId(e.target.value);
           props.func(
-            { fieldId: e.target.value, fieldValue: fieldValue },
+            { fieldId: e.target.value, fieldValue: fieldValue, primary: !!props.icon },
             props.fieldKey
           );
         }}
@@ -28,7 +28,7 @@ function Field(props) {
         onChange={async (e) => {
           await setFieldValue(e.target.value);
           props.func(
-            { fieldId: fieldId, fieldValue: e.target.value },
+            { fieldId: fieldId, fieldValue: e.target.value, primary: !!props.icon },
             props.fieldKey
           );
         }}
